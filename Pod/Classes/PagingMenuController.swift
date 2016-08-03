@@ -41,14 +41,14 @@ public class PagingMenuController: UIViewController, PagingValidator {
         }
     }
     
-    private var options: PagingMenuControllerCustomizable! {
+    internal var options: PagingMenuControllerCustomizable! {
         didSet {
             cleanup()
             
             validate(options)
         }
     }
-    private var menuOptions: MenuViewCustomizable?
+    internal var menuOptions: MenuViewCustomizable?
     
     // MARK: - Lifecycle
     
@@ -130,7 +130,7 @@ public class PagingMenuController: UIViewController, PagingValidator {
         switch options.componentType {
         case .menuView, .all:
             // ignore an unexpected page number
-            guard let menuView = menuView where page < menuView.menuItemCount else { return }
+            guard let menuView = menuView, page < menuView.menuItemCount else { return }
             
             let lastPage = menuView.currentPage
             guard page != lastPage else {
@@ -147,7 +147,7 @@ public class PagingMenuController: UIViewController, PagingValidator {
                 return
             }
         case .pagingController:
-            guard let pagingViewController = pagingViewController where page < pagingViewController.controllers.count else { return }
+            guard let pagingViewController = pagingViewController, page < pagingViewController.controllers.count else { return }
             guard page != pagingViewController.currentPage else { return }
         }
         
@@ -393,7 +393,7 @@ extension PagingMenuController: GestureHandler {
     internal func handleTapGesture(_ recognizer: UITapGestureRecognizer) {
         guard let menuItemView = recognizer.view as? MenuItemView,
             let menuView = menuView,
-            let page = menuView.menuItemViews.index(of: menuItemView) where page != menuView.currentPage,
+            let page = menuView.menuItemViews.index(of: menuItemView), page != menuView.currentPage,
             let menuOptions = menuOptions else { return }
         
         let newPage: Int

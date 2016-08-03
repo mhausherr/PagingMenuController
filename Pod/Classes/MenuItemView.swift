@@ -26,7 +26,7 @@ public class MenuItemView: UIView {
     public internal(set) var selected: Bool = false {
         didSet {
             if case .roundRect = menuOptions.focusMode {
-                backgroundColor = UIColor.clear()
+                backgroundColor = UIColor.clear
             } else {
                 backgroundColor = selected ? menuOptions.selectedBackgroundColor : menuOptions.backgroundColor
             }
@@ -58,11 +58,11 @@ public class MenuItemView: UIView {
         return imageView
     }()
     
-    private var menuOptions: MenuViewCustomizable!
-    private var menuItemOptions: MenuItemViewCustomizable!
+    internal var menuOptions: MenuViewCustomizable!
+    internal var menuItemOptions: MenuItemViewCustomizable!
     private var widthConstraint: NSLayoutConstraint!
     private var descriptionWidthConstraint: NSLayoutConstraint!
-    private var horizontalMargin: CGFloat {
+    internal var horizontalMargin: CGFloat {
         switch menuOptions.displayMode {
         case .segmentedControl: return 0.0
         default: return menuItemOptions.horizontalMargin
@@ -144,7 +144,7 @@ public class MenuItemView: UIView {
     
     private func setupView() {
         if case .roundRect = menuOptions.focusMode {
-            backgroundColor = UIColor.clear()
+            backgroundColor = UIColor.clear
         } else {
             backgroundColor = menuOptions.backgroundColor
         }
@@ -220,7 +220,7 @@ public class MenuItemView: UIView {
         let width: CGFloat
         switch menuOptions.displayMode {
         case .segmentedControl:
-            width = UIApplication.shared().keyWindow!.bounds.size.width / CGFloat(menuOptions.itemsOptions.count)
+            width = UIApplication.shared.keyWindow!.bounds.size.width / CGFloat(menuOptions.itemsOptions.count)
         default:
             width = image.size.width + horizontalMargin * 2
         }
@@ -307,7 +307,7 @@ extension MenuItemView: LabelSizeCalculatable {
         return CGSize(width: itemWidth + horizontalMargin * 2, height: itemHeight)
     }
     
-    private var maxWindowSize: CGFloat {
-        return UIApplication.shared().keyWindow?.bounds.width ?? UIScreen.main().bounds.width
+    internal var maxWindowSize: CGFloat {
+        return UIApplication.shared.keyWindow?.bounds.width ?? UIScreen.main.bounds.width
     }
 }

@@ -14,16 +14,16 @@ public class MenuView: UIScrollView {
     weak internal var viewDelegate: PagingMenuControllerDelegate?
     internal private(set) var menuItemViews = [MenuItemView]()
     
-    private var menuOptions: MenuViewCustomizable!
+    internal var menuOptions: MenuViewCustomizable!
     private var sortedMenuItemViews = [MenuItemView]()
-    private let contentView: UIView = {
+    internal let contentView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView(frame: .zero))
-    lazy private var underlineView: UIView = {
+    lazy internal var underlineView: UIView = {
         return UIView(frame: .zero)
     }()
-    lazy private var roundRectView: UIView = {
+    lazy internal var roundRectView: UIView = {
         $0.isUserInteractionEnabled = true
         return $0
     }(UIView(frame: .zero))
@@ -56,14 +56,14 @@ public class MenuView: UIScrollView {
         }
     }
     private var centerOfScreenWidth: CGFloat {
-        return menuItemViews[currentPage].frame.midX - UIApplication.shared().keyWindow!.bounds.width / 2
+        return menuItemViews[currentPage].frame.midX - UIApplication.shared.keyWindow!.bounds.width / 2
     }
     private var contentOffsetXForCurrentPage: CGFloat {
         guard menuItemCount > MinimumSupportedViewCount else { return 0.0 }
         let ratio = CGFloat(currentPage) / CGFloat(menuItemCount - 1)
         return (contentSize.width - frame.width) * ratio
     }
-    private var currentIndex: Int = 0
+    internal var currentIndex: Int = 0
     
     // MARK: - Lifecycle
     internal init(menuOptions: MenuViewCustomizable) {
@@ -107,7 +107,7 @@ public class MenuView: UIScrollView {
         let previousPage = currentPage
         let previousMenuItemView = currentMenuItemView
         
-        if let previousMenuItemView = previousMenuItemView where page != previousPage {
+        if let previousMenuItemView = previousMenuItemView, page != previousPage {
             viewDelegate?.willMoveToMenuItemView?(menuItemView, previousMenuItemView: previousMenuItemView)
         }
         
@@ -137,7 +137,7 @@ public class MenuView: UIScrollView {
                 self!.alpha = 1
             }
             
-            if let previousMenuItemView = previousMenuItemView where page != previousPage {
+            if let previousMenuItemView = previousMenuItemView, page != previousPage {
                 self!.viewDelegate?.didMoveToMenuItemView?(self!.currentMenuItemView, previousMenuItemView: previousMenuItemView)
             }
         }

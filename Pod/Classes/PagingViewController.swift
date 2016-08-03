@@ -11,7 +11,7 @@ import UIKit
 public class PagingViewController: UIViewController {
     public let controllers: [UIViewController]
     public internal(set) var currentViewController: UIViewController!
-    public private(set) var visibleControllers = [UIViewController]()
+    public internal(set) var visibleControllers = [UIViewController]()
     
     internal let contentScrollView: UIScrollView = {
         $0.isPagingEnabled = true
@@ -23,8 +23,8 @@ public class PagingViewController: UIViewController {
         return $0
     }(UIScrollView(frame: .zero))
     
-    private let options: PagingMenuControllerCustomizable
-    private var currentIndex: Int = 0
+    internal let options: PagingMenuControllerCustomizable
+    internal var currentIndex: Int = 0
     
     init(viewControllers: [UIViewController], options: PagingMenuControllerCustomizable) {
         controllers = viewControllers
